@@ -5,16 +5,16 @@ var fs = require('fs');
 //page.content = '<html><body><p>Hello world</p></body></html>';
 page.viewportSize = { width: 1920, height: 1080 };
 
-var one = fs.readFileSync('/Users/paulscarrone/workrepos/resemble_batch/images/onyx.jpg');
-var two;
+//var one = fs.readFileSync('/Users/paulscarrone/workrepos/resemble_batch/images/onyx.jpg');
+//var two;
 
-page.one = one;
+//page.one = one;
 
 page.onConsoleMessage = function(msg, lineNum, sourceId) {
   console.log('CONSOLE: ' + msg + ' (from line #' + lineNum + ' in "' + sourceId + '")');
 };
 
-page.onLoadFinished = function (status) {
+/*page.onLoadFinished = function (status) {
   if (status !== 'success') {
     console.log('Unable to access network');
   } else {
@@ -50,8 +50,12 @@ page.onLoadFinished = function (status) {
     }, 3000);
   }
 
-};
+};*/
 
-page.open('http://localhost', function(){
-
+page.open('http://localhost:8080/bigger.html', function(){
+  window.setTimeout(function(){
+    console.log(page.content);
+    page.render('my_home.jpeg', {format: 'jpeg', quality: '100'});
+    phantom.exit();
+  },5000);
 });

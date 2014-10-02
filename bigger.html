@@ -22,8 +22,9 @@
   <div id="log"></div>
   <script>
     function callback(data){
-      console.log(data);
       print();
+      console.log(data);
+      console.log(JSON.stringify(data,null,2));
     }
     resemble('http://localhost:8080/images/screenshot1.png')
       .compareTo('http://localhost:8080/images/screenshot2.png')

@@ -3,30 +3,37 @@
   <script>
     var start = new Date();
   </script>
+  <script>
+    var print = function(){
+      var end = new Date();
+      a = $('<div>Start '+start.toString()+'</div>');
+      b = $('<div>End '+end.toString()+'</div>');
+      c = $('<div>Length '+(end - start)+'</div>');
+      //$('#log').html('');
+      $('#log').append(a);
+      $('#log').append(b);
+      $('#log').append(c);
+    }
+  </script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="node_modules/resemblejs/resemble.js"></script>
 </head>
 <body>
+  <div id="log"></div>
   <img src='images/cat.png' id='one'/>
   <img src='images/roger.png' id='two'/>
   <script>
     function callback(data){
       console.log(data);
+      print();
     }
     resemble('http://localhost:8080/images/cat.png')
       .compareTo('http://localhost:8080/images/roger.png')
       .onComplete(callback);
+    start = new Date();
     resemble('http://localhost:8080/images/cat.png').onComplete(callback);
+    start = new Date();
     resemble('http://localhost:8080/images/roger.png').onComplete(callback);
-  </script>
-  <script>
-    var end = new Date();
-    a = $('<div>Start '+start.toString()+'</div>');
-    b = $('<div>End '+end.toString()+'</div>');
-    c = $('<div>Length '+(end - start)+'</div>');
-    $('body').prepend(c);
-    $('body').prepend(b);
-    $('body').prepend(a);
   </script>
 </body>
 </html>

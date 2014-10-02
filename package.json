@@ -1,0 +1,25 @@
+{
+  "name": "resemble_batch",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ninjapanzer/resemble_batch.git"
+  },
+  "author": "Paul Scarrone",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ninjapanzer/resemble_batch/issues"
+  },
+  "homepage": "https://github.com/ninjapanzer/resemble_batch",
+  "dependencies": {
+    "resemblejs": "^1.2.0",
+    "coffee-script": "^1.8.0",
+    "nodewebkit": "^0.10.5",
+    "phantomjs": "^1.9.10"
+  }
+}

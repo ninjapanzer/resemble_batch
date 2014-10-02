@@ -1,5 +1,8 @@
 <html>
 <head>
+  <script>
+    var start = new Date();
+  </script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="node_modules/resemblejs/resemble.js"></script>
 </head>
@@ -15,6 +18,15 @@
       .onComplete(callback);
     resemble('http://localhost:8080/images/cat.png').onComplete(callback);
     resemble('http://localhost:8080/images/roger.png').onComplete(callback);
+  </script>
+  <script>
+    var end = new Date();
+    a = $('<div>Start '+start.toString()+'</div>');
+    b = $('<div>End '+end.toString()+'</div>');
+    c = $('<div>Length '+(end - start)+'</div>');
+    $('body').prepend(c);
+    $('body').prepend(b);
+    $('body').prepend(a);
   </script>
 </body>
 </html>

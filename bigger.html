@@ -1,0 +1,37 @@
+<html>
+<head>
+  <script>
+    var start = new Date();
+  </script>
+  <script>
+    var print = function(){
+      var end = new Date();
+      a = $('<div>Start '+start.toString()+'</div>');
+      b = $('<div>End '+end.toString()+'</div>');
+      c = $('<div>Length '+(end - start)+'</div>');
+      //$('#log').html('');
+      $('#log').append(a);
+      $('#log').append(b);
+      $('#log').append(c);
+    }
+  </script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="node_modules/resemblejs/resemble.js"></script>
+</head>
+<body>
+  <div id="log"></div>
+  <script>
+    function callback(data){
+      console.log(data);
+      print();
+    }
+    resemble('http://localhost:8080/images/screenshot1.png')
+      .compareTo('http://localhost:8080/images/screenshot2.png')
+      .onComplete(callback);
+    start = new Date();
+    resemble('http://localhost:8080/images/screenshot1.png').onComplete(callback);
+    start = new Date();
+    resemble('http://localhost:8080/images/screenshot2.png').onComplete(callback);
+  </script>
+</body>
+</html>

@@ -23,16 +23,26 @@
   <script>
     function callback(data){
       print();
-      console.log(data);
-      console.log(JSON.stringify(data,null,2));
+      //console.log(data);
+      var result = {};
+      result['file'] = window.file;
+      result['data'] = data;
+      console.log(JSON.stringify(result,null,2));
     }
-    resemble('http://localhost:8080/images/screenshot1.png')
-      .compareTo('http://localhost:8080/images/screenshot2.png')
-      .onComplete(callback);
-    start = new Date();
-    resemble('http://localhost:8080/images/screenshot1.png').onComplete(callback);
-    start = new Date();
-    resemble('http://localhost:8080/images/screenshot2.png').onComplete(callback);
+    var resembleIt = function(){
+      if(!window.file){
+        callback("");
+        return;
+      }
+      resemble('http://localhost:8080/baseline/'+window.file)
+        .compareTo('http://localhost:8080/screenshots/'+window.file)
+        .onComplete(callback);
+    }
+    setTimeout(resembleIt, 500);
+    //start = new Date();
+    //resemble('http://localhost:8080/images/screenshot1.png').onComplete(callback);
+    //start = new Date();
+    //resemble('http://localhost:8080/images/screenshot2.png').onComplete(callback);
   </script>
 </body>
 </html>

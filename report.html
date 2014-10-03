@@ -1,0 +1,48 @@
+<html>
+<head>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="node_modules/resemblejs/resemble.js"></script>
+  <script>
+    var results;
+    $(function(){
+      $.getJSON('results.pnz',function(data){
+        results = data;
+        buildReport();
+      });
+
+      var buildReport = function(){
+        console.log('hi');
+        for(var r in results){
+          console.log(results[r]);
+          if(results[r][0].misMatchPercentage > 0.99){
+            var screenshot = new Image();
+            screenshot.src = 'screenshots/'+r;
+            var baseline = new Image();
+            baseline.src = 'baseline/'+r;
+            $('body').append(screenshot);
+            $('body').append(baseline);
+            var id = r.replace('.','_');
+            //var canvas = $('<canvas></canvas>', {"id": id, 'width': 3000, 'height': 3000});
+            //canvas.id = r;
+            //canvas.width = 3000;
+            //canvas.height = 3000;
+            //$('body').append(canvas);
+            var diffImage = new Image();
+            diffImage.id = id;
+            $('body').append(diffImage);
+            //var context = $('#'+id)[0].getContext('2d');
+            var diff = resemble('screenshots/'+r).compareTo('baseline/'+r).onComplete(function(data){
+              //context.drawImage(data.getImageDataUrl, 100, 100);
+              diffImage.src = data.getImageDataUrl();
+            });
+
+          }
+        }
+      }
+    });
+  </script>
+</head>
+<body>
+
+</body>
+</html>

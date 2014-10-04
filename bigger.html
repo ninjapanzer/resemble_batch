@@ -2,6 +2,7 @@
 <head>
   <script>
     var start = new Date();
+    var done = false;
   </script>
   <script>
     var print = function(){
@@ -28,6 +29,7 @@
       result['file'] = window.file;
       result['data'] = data;
       console.log(JSON.stringify(result,null,2));
+      done = true;
     }
     var resembleIt = function(){
       if(!window.file){

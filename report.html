@@ -1,5 +1,15 @@
 <html>
 <head>
+  <style>
+    .container .screenshot{
+      width: 50%;
+      float: left;
+    }
+    .container .baseline{
+      width: 50%;
+      /*clear: both;*/
+    }
+  </style>
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="node_modules/resemblejs/resemble.js"></script>
   <script>
@@ -10,32 +20,38 @@
         buildReport();
       });
 
+      var drawMagic = function(r){
+        var diff = resemble('http://localhost:8080/screenshots/'+r).compareTo('http://localhost:8080/baseline/'+r).onComplete(function(data){
+          var id = r.replace('.','_');
+          var screenshot = new Image();
+          $(screenshot).addClass('screenshot');
+          screenshot.src = 'http://localhost:8080/screenshots/'+r;
+          var baseline = new Image();
+          baseline.src = 'http://localhost:8080/baseline/'+r;
+          $(baseline).addClass('baseline');
+          var container = $('<div></div>');
+          $('body').append(container);
+          $(container).addClass('container');
+          $(container).addClass(id);
+          container.append(screenshot);
+          container.append(baseline);
+          var diffImage = new Image();
+          diffImage.id = id;
+          container.prepend(diffImage);
+          diffImage.src = data.getImageDataUrl();
+          container.prepend('<span>'+id+'</span>');
+          //diffImage.src = data.getImageDataUrl();
+          //context.drawImage(data.getImageDataUrl, 100, 100);
+          console.log(id);
+        });
+      };
+
+      var diffs = [];
       var buildReport = function(){
         console.log('hi');
         for(var r in results){
-          console.log(results[r]);
           if(results[r][0].misMatchPercentage > 0.99){
-            var screenshot = new Image();
-            screenshot.src = 'screenshots/'+r;
-            var baseline = new Image();
-            baseline.src = 'baseline/'+r;
-            $('body').append(screenshot);
-            $('body').append(baseline);
-            var id = r.replace('.','_');
-            //var canvas = $('<canvas></canvas>', {"id": id, 'width': 3000, 'height': 3000});
-            //canvas.id = r;
-            //canvas.width = 3000;
-            //canvas.height = 3000;
-            //$('body').append(canvas);
-            var diffImage = new Image();
-            diffImage.id = id;
-            $('body').append(diffImage);
-            //var context = $('#'+id)[0].getContext('2d');
-            var diff = resemble('screenshots/'+r).compareTo('baseline/'+r).onComplete(function(data){
-              //context.drawImage(data.getImageDataUrl, 100, 100);
-              diffImage.src = data.getImageDataUrl();
-            });
-
+            drawMagic(r);
           }
         }
       }

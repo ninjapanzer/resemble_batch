@@ -1,4 +1,7 @@
-### In action resemblejs test
+### Resemble Visual Diff with only PhantomJS
+
+This does not require CasperJS or anything to run tests. It only visualizes diffs from screenshots
+Very much like https://github.com/Huddle/PhantomCSS but with a slimmer set of requirements :)
 
 ##### In that browser
 - `bower install`

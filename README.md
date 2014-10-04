@@ -17,3 +17,10 @@
   - and the branch you want to test
   - It takes hours to run the whole set in Vagrant so it is best to pick a specific group of integration tests to compare at a time for now
 - `phantomjs compare.js`
+
+##### See the report
+- `brew update && brew install phantomjs`
+- `bower install`
+- `npm install`
+- `python -m SimpleHTTPServer 8080` <- on the root of the project
+- Navigate to `http://localhost:8080/report.html` <- after you have run some comparisons
